@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module configVersion="1.2">
+    <id>additionalordertypes</id>
+    <name>Additional Order Types</name>
+    <version>${project.version}</version>
+    <package>org.openmrs.module.additionalordertypes</package>
+    <author>OpenMRS</author>
+    <description>An OpenMRS module that logs a message when it is loaded.</description>
+    <activator>org.openmrs.module.additionalordertypes.AdditionalOrderTypesActivator</activator>
+    <require_version>${openmrsPlatformVersion}</require_version>
+</module>
