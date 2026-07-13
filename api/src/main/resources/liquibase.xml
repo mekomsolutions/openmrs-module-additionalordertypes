@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="additionalordertypes-20260713-create-procedure-order" author="OpenMRS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="procedure_order"/>
+            </not>
+        </preConditions>
+        <comment>Create the joined table for procedure orders</comment>
+        <createTable tableName="procedure_order">
+            <column name="order_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="body_site" type="int"/>
+            <column name="specimen_source" type="int"/>
+            <column name="specimen_type" type="int"/>
+            <column name="laterality" type="varchar(20)"/>
+            <column name="clinical_history" type="text"/>
+            <column name="frequency" type="int"/>
+            <column name="number_of_repeats" type="int"/>
+            <column name="location" type="int"/>
+            <column name="related_procedure_id" type="int"/>
+            <column name="category" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="procedure_order_order_id_fk"
+                                 baseTableName="procedure_order" baseColumnNames="order_id"
+                                 referencedTableName="orders" referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_body_site_fk"
+                                 baseTableName="procedure_order" baseColumnNames="body_site"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_specimen_source_fk"
+                                 baseTableName="procedure_order" baseColumnNames="specimen_source"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_specimen_type_fk"
+                                 baseTableName="procedure_order" baseColumnNames="specimen_type"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_frequency_fk"
+                                 baseTableName="procedure_order" baseColumnNames="frequency"
+                                 referencedTableName="order_frequency" referencedColumnNames="order_frequency_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_location_fk"
+                                 baseTableName="procedure_order" baseColumnNames="location"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_related_procedure_fk"
+                                 baseTableName="procedure_order" baseColumnNames="related_procedure_id"
+                                 referencedTableName="procedure_order" referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_category_fk"
+                                 baseTableName="procedure_order" baseColumnNames="category"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <createIndex indexName="procedure_order_frequency_index" tableName="procedure_order">
+            <column name="frequency"/>
+        </createIndex>
+        <createIndex indexName="procedure_order_specimen_source_index" tableName="procedure_order">
+            <column name="specimen_source"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="additionalordertypes-20260713-add-procedure-category" author="OpenMRS">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="procedure_order"/>
+                <not>
+                    <columnExists tableName="procedure_order" columnName="category"/>
+                </not>
+            </and>
+        </preConditions>
+        <comment>Add category when adopting an existing orderexpansion procedure_order table</comment>
+        <addColumn tableName="procedure_order">
+            <column name="category" type="int"/>
+        </addColumn>
+        <addForeignKeyConstraint constraintName="procedure_order_category_fk"
+                                 baseTableName="procedure_order" baseColumnNames="category"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+    </changeSet>
+
+    <changeSet id="additionalordertypes-20260713-create-medical-supply-order" author="OpenMRS">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="medical_supplies_order"/>
+            </not>
+        </preConditions>
+        <comment>Create the joined table for medical supply orders</comment>
+        <createTable tableName="medical_supplies_order">
+            <column name="order_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="medical_supplies_inventory_id" type="int"/>
+            <column name="quantity" type="double"/>
+            <column name="quantity_units" type="int"/>
+            <column name="brand_name" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="medical_supplies_order_order_id_fk"
+                                 baseTableName="medical_supplies_order" baseColumnNames="order_id"
+                                 referencedTableName="orders" referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint constraintName="medical_supplies_order_quantity_units_fk"
+                                 baseTableName="medical_supplies_order" baseColumnNames="quantity_units"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+    </changeSet>
+
+    <changeSet id="additionalordertypes-20260713-medical-supply-quantity-double" author="OpenMRS">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="medical_supplies_order"/>
+                <columnExists tableName="medical_supplies_order" columnName="quantity"/>
+            </and>
+        </preConditions>
+        <comment>Retain fractional quantities when adopting an existing orderexpansion table</comment>
+        <modifyDataType tableName="medical_supplies_order" columnName="quantity" newDataType="double"/>
+    </changeSet>
+</databaseChangeLog>

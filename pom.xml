@@ -25,6 +25,7 @@
 
     <properties>
         <openmrsPlatformVersion>2.6.0</openmrsPlatformVersion>
+        <webservicesRestVersion>2.32.0</webservicesRestVersion>
         <javaCompilerSource>1.8</javaCompilerSource>
         <javaCompilerTarget>1.8</javaCompilerTarget>
     </properties>

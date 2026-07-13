@@ -13,6 +13,6 @@ public class AdditionalOrderTypesActivator extends BaseModuleActivator {
 	
 	@Override
 	public void started() {
-		log.info("Additional Order Types module loaded successfully");
+		log.info("Additional Order Types module loaded with procedure and medical supply order support");
 	}
 }
