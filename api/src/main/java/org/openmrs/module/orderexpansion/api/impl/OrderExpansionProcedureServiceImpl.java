@@ -13,16 +13,16 @@ import org.openmrs.EncounterProvider;
 import org.openmrs.Obs;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.orderexpansion.api.ProcedureService;
-import org.openmrs.module.orderexpansion.api.dao.ProcedureDao;
+import org.openmrs.module.orderexpansion.api.OrderExpansionProcedureService;
+import org.openmrs.module.orderexpansion.api.dao.OrderExpansionProcedureDao;
 import org.openmrs.module.orderexpansion.api.model.Procedure;
 
 @Transactional
-public class ProcedureServiceImpl implements ProcedureService {
+public class OrderExpansionProcedureServiceImpl implements OrderExpansionProcedureService {
 	
-	private ProcedureDao procedureDao;
+	private OrderExpansionProcedureDao procedureDao;
 	
-	public void setProcedureDao(ProcedureDao procedureDao) {
+	public void setProcedureDao(OrderExpansionProcedureDao procedureDao) {
 		this.procedureDao = procedureDao;
 	}
 	

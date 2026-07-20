@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.openmrs.module.orderexpansion.api.model.Procedure;
 
-public interface ProcedureService {
+public interface OrderExpansionProcedureService {
 	
 	Optional<Procedure> getProcedureByUuid(@NotNull String uuid);
 	

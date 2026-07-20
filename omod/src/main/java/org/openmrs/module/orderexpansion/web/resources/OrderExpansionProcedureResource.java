@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.openmrs.Encounter;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.orderexpansion.api.ProcedureService;
+import org.openmrs.module.orderexpansion.api.OrderExpansionProcedureService;
 import org.openmrs.module.orderexpansion.api.model.Procedure;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
@@ -24,14 +24,14 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name = RestConstants.VERSION_1 + "/procedure", supportedClass = Procedure.class, supportedOpenmrsVersions = {
-        "2.6.* - 9.*" })
-public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
+@Resource(name = RestConstants.VERSION_1
+        + "/orderexpansionprocedure", supportedClass = Procedure.class, supportedOpenmrsVersions = { "2.6.* - 9.*" })
+public class OrderExpansionProcedureResource extends DataDelegatingCrudResource<Procedure> {
 	
-	private ProcedureService procedureService;
+	private OrderExpansionProcedureService procedureService;
 	
-	public ProcedureResource() {
-		this.procedureService = Context.getService(ProcedureService.class);
+	public OrderExpansionProcedureResource() {
+		this.procedureService = Context.getService(OrderExpansionProcedureService.class);
 	}
 	
 	@Override

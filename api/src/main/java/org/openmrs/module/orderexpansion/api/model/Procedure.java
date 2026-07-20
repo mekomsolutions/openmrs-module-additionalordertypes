@@ -23,7 +23,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 
-@Entity
+@Entity(name = "OrderExpansionProcedure")
 @Table(name = "procedures")
 public class Procedure extends BaseFormRecordableOpenmrsData {
 	
