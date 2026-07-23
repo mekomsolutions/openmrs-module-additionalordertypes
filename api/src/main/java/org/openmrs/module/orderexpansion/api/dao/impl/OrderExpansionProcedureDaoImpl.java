@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.openmrs.module.orderexpansion.api.dao.ProcedureDao;
+import org.openmrs.module.orderexpansion.api.dao.OrderExpansionProcedureDao;
 import org.openmrs.module.orderexpansion.api.model.Procedure;
 
-public class ProcedureDaoImpl implements ProcedureDao {
+public class OrderExpansionProcedureDaoImpl implements OrderExpansionProcedureDao {
 	
 	private SessionFactory sessionFactory;
 	

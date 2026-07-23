@@ -23,19 +23,23 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.openmrs.module.orderexpansion" />
 
-    <bean id="procedureService"
+    <!--
+        Keep module bean names namespaced. OpenMRS core and other modules may also
+        expose beans named procedureService/procedureDao.
+    -->
+    <bean id="orderExpansionProcedureService"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="target">
-            <bean class="org.openmrs.module.orderexpansion.api.impl.ProcedureServiceImpl">
-                <property name="procedureDao" ref="procedureDao"/>
+            <bean class="org.openmrs.module.orderexpansion.api.impl.OrderExpansionProcedureServiceImpl">
+                <property name="procedureDao" ref="orderExpansionProcedureDao"/>
             </bean>
         </property>
         <property name="preInterceptors" ref="serviceInterceptors"/>
         <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
     </bean>
 
-    <bean id="procedureDao" class="org.openmrs.module.orderexpansion.api.dao.impl.ProcedureDaoImpl">
+    <bean id="orderExpansionProcedureDao" class="org.openmrs.module.orderexpansion.api.dao.impl.OrderExpansionProcedureDaoImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
@@ -43,8 +47,8 @@
      <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.orderexpansion.api.ProcedureService</value>
-                <ref bean="procedureService"/>
+                <value>org.openmrs.module.orderexpansion.api.OrderExpansionProcedureService</value>
+                <ref bean="orderExpansionProcedureService"/>
             </list>
         </property>
     </bean>

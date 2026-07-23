@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.openmrs.module.orderexpansion.api.model.Procedure;
 
-public interface ProcedureDao {
+public interface OrderExpansionProcedureDao {
 	
 	Optional<Procedure> get(@NotNull int id);
 	
