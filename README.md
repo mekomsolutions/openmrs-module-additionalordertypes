@@ -1,3 +1,5 @@
+This repository is a fork of https://github.com/palladiumkenya/openmrs-module-orderexpansion/
+
 # openmrs-module-orderexpansion
 
 ## Overview
